@@ -90,7 +90,9 @@
                                 <tr>
 
                                     <td>{{ $values->category_name }}</td>
-                                    <td><a class="btn btn-danger" href="/category_delete/{{ $values->id }}">Delete</a>
+                                    <td><a onclick="return confirm('Are you sure to delete this record!')"
+                                            class="btn btn-danger"
+                                            href="{{ url('category_delete',$values->id) }}">Delete</a>
                                     </td>
 
                                 </tr>
@@ -98,7 +100,7 @@
                             </tbody>
                         </table>
                         <div class="pagination">
-                            {{ $category_list->links() }}
+
                         </div>
                     </div>
 
