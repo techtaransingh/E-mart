@@ -53,7 +53,13 @@
             <!-- partial -->
             <div class="main-panel">
                 <div class="content-wrapper">
-
+                    @if($errors->any())
+                    <div class="alert alert-danger">
+                        @foreach($errors->all() as $value)
+                        <p class="text-center">{{ $value }}</p>
+                    </div>
+                    @endforeach
+                    @endif
                     @if($success=session('success'))
                     <div class="alert alert-success">
                         <p class="text-center">{{$success}}</p>
@@ -79,16 +85,17 @@
                         <table class="center table table-stripped">
                             <thead>
                                 <tr>
+                                    <th scope="col">S.No.</th>
                                     <th scope="col">Category Name</th>
                                     <th scope="col">Action</th>
 
                                 </tr>
                             </thead>
                             <tbody>
-
+                                <?php $no = 1; ?>
                                 @foreach($category_list as $key=>$values)
                                 <tr>
-
+                                    <td>{{ $no }}.</td>
                                     <td>{{ $values->category_name }}</td>
                                     <td><a onclick="return confirm('Are you sure to delete this record!')"
                                             class="btn btn-danger"
@@ -96,13 +103,13 @@
                                     </td>
 
                                 </tr>
+                                <?php $no++; ?>
                                 @endforeach
-                            </tbody>
-                        </table>
-                        <div class="pagination">
 
-                        </div>
+                            </tbody>
                     </div>
+                    </table>
+
 
 
                 </div>
