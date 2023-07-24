@@ -50,12 +50,12 @@
 
                     @if ($product->price != null)
                     <h6 style="color:red;text-decoration:line-through">Price :<br />
-                        {{ $product->price }}
+                        ₹{{ $product->price }}
                     </h6>
                     @endif
                     @if ($product->discount_price != null)
                     <h6 style="color:blue">Discount Price:<br>
-                        {{ $product->discount_price }}
+                        ₹{{ $product->discount_price }}
                     </h6>
                     @endif
                     @if ($product->category != null)
@@ -74,8 +74,22 @@
                         {{ $product->quantity }}
                     </h6>
                     @endif
+                    <!-- 
+                    <a href="{{ URL('add_cart',$product->id) }}"><button type="button" class="btn btn-primary">Add to
+                            Cart</button></a> -->
+                    <form method="post" action="{{ URL('add_cart',$product->id) }}">
+                        <div class="row">
+                            @csrf
+                            <div class="col-md-4">
 
-                    <a href="/addtocart"><button type="button" class="btn btn-primary">Add to Cart</button></a>
+                                <input type="number" min=1 value="1" class="form-control" name="quantity"
+                                    style="width:100px" />
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" value="Add To Cart" />
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
 

@@ -26,9 +26,11 @@ Route::get('/view_product', [AdminController::class, 'view_product']);
 Route::post('/add_product', [AdminController::class, 'add_product']);
 Route::get('/view_productlist', [AdminController::class, 'view_productlist']);
 Route::get('/productlist_delete/{id}', [AdminController::class, 'productlist_delete']);
-Route::post('/productlist_edit/{id}', [AdminController::class, 'productlist_edit']);
+Route::get('/productlist_edit/{id}', [AdminController::class, 'productlist_edit']);
 Route::get('/product_details/{id}', [HomeController::class, 'product_details']);
-
+Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
+Route::get('/show_cart/{id?}', [HomeController::class, 'show_cart']);
+Route::get('/delete_product/{id}', [HomeController::class, 'delete_product']);
 
 
 

@@ -57,6 +57,8 @@ class AdminController extends Controller
     }
     public function view_productlist(Request $request)
     {
+        // echo $id;
+        // die;
         $products = Product::all();
         $category = Category::all();
         // dd($products);
@@ -65,6 +67,8 @@ class AdminController extends Controller
     }
     public function productlist_delete(Request $request, $id)
     {
+        echo $id;
+        die;
         $product_id = Product::find($id);
         $product_deleted = $product_id->delete();
 
@@ -72,8 +76,8 @@ class AdminController extends Controller
     }
     public function productlist_edit(Request $request, $id)
     {
-        echo $id;
-        die;
+        // echo $id;
+        // die;
         $product = Product::find($id);
 
         $data = $request->validate([
@@ -96,4 +100,5 @@ class AdminController extends Controller
 
         return view('admin.productlist', ['product' => $product,]);
     }
+
 }
