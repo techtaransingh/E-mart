@@ -80,7 +80,8 @@
                                         <img src="{{ URL('/images', $value->image)}}"
                                             class="d-block ui-w-40 ui-bordered mr-4" alt="">
                                         <div class="media-body">
-                                            <a href="#" class="d-block text-dark">{{$value->product_title}}</a>
+                                            <a href="{{ URL('product_details',$value->product_id) }}"
+                                                class="d-block text-dark">{{$value->product_title}}</a>
                                             <small>
 
                                                 <?php foreach($product as $values){ ?>
@@ -138,7 +139,7 @@
                     </div>
                     <div class="text-right mt-4">
                         <label style="color:red;text-decoration:line-through"
-                            class="text-muted font-weight-normal m-0">Total price (without discount)</label>
+                            class="text-muted font-weight-normal m-0">Items</label>
 
                         <div style="color:red;text-decoration:line-through" class="text-large">
                             <strong>₹{{ $price_without_discount }}</strong>
@@ -158,9 +159,10 @@
                 </div>
 
                 <div class="float-right">
-                    <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to
-                        shopping</button>
-                    <button type="button" class="btn btn-lg btn-primary mt-2">Checkout</button>
+                    <!-- <button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Back to
+                        shopping</button> -->
+                    <a href="{{ URL ('stripe',$wcp_price )}}" class="btn btn-lg btn-info mt-2">Via card</a>
+                    <a href="{{ URL ('cash_order')}}" class="btn btn-lg btn-primary mt-2">Cash on delivery</a>
                 </div>
 
             </div>

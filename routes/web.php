@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +34,12 @@ Route::get('/product_details/{id}', [HomeController::class, 'product_details']);
 Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
 Route::get('/show_cart/{id?}', [HomeController::class, 'show_cart']);
 Route::get('/delete_product/{id}', [HomeController::class, 'delete_product']);
+Route::get('/cash_order', [HomeController::class, 'cash_order']);
+Route::get('/stripe/{price}', [StripeController::class, 'stripe']);
+Route::post('/stripePost', [StripeController::class, 'stripePost']);
+// Route::get('stripe-form/{price}', [StripePaymentController::class, 'form'])->name('stripeForm');
+// Route::post('stripe-form/submit', [StripePaymentController::class, 'submit'])->name('stripeSubmit');
+// Route::get('stripe-response/{id}', [StripePaymentController::class, 'response'])->name('stripeResponse');
 
 
 
