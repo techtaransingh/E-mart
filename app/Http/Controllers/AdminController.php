@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Order;
+use PDF;
 
 use Illuminate\Http\Request;
 
@@ -67,8 +69,8 @@ class AdminController extends Controller
     }
     public function productlist_delete(Request $request, $id)
     {
-        echo $id;
-        die;
+        // echo $id;
+        // die;
         $product_id = Product::find($id);
         $product_deleted = $product_id->delete();
 
@@ -101,4 +103,32 @@ class AdminController extends Controller
         return view('admin.productlist', ['product' => $product,]);
     }
 
+    public function view_orderlist(Request $request)
+    {
+        $order = Order::all();
+        return view('admin.orderlist', ['order' => $order]);
+    }
+    public function delivered(Request $request, $id)
+    {
+        $order_delivered = Order::find($id);
+        // dd($order_delivered->payment_status);
+        if ($order_delivered->payment_status == 'Paid by card') {
+            $order_delivered->update(['delivery_status' => 'delivered']);
+        } else {
+            $order_delivered->update(['payment_status' => 'Paid by cash', 'delivery_status' => 'delivered']);
+        }
+        return back()->with('message', 'Order No ' . $id . ' Delivered Successfully');
+    }
+    public function print_pdf(Request $request, $id)
+    {
+        // echo public_path('images');
+        // die;
+        $data = Order::find($id);
+
+        $pdf = PDF::loadView('admin.order_detail', ['data' => $data]);
+
+        // dd($data->name);
+        // return view('admin.order_detail', ['data' => $data]);
+        return $pdf->download('order_detail' . $id . '.pdf');
+    }
 }

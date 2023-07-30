@@ -1,8 +1,10 @@
 <?php 
+
  $wcp_price = 0;
  $price_diff = 0;
  $price_without_discount = 0;
  $price_with_discount = 0;
+ $discount_percentage = 0;
 ?>
 <!doctype html>
 <html lang="en">
@@ -54,7 +56,24 @@
             <div class="card-header">
                 <h2>Shopping Cart</h2>
             </div>
+            <!-- @if($message=session('message'))
+            <div class="alert alert-success">
+                <p class="text-center">{{$message}}</p>
+            </div>
+            @endif -->
+
             <div class="card-body">
+                <?php 
+            if($cart->isEmpty()){
+                
+                if($product[0]->isEmpty()){
+                echo 'Your cart is empty.';die;
+                
+            }
+        }
+            else{
+            ?>
+
                 <div class="table-responsive">
                     <table class="table table-bordered m-0">
                         <thead>
@@ -72,7 +91,9 @@
                         </thead>
                         <tbody>
 
-                            <?php foreach($cart as $value){ ?>
+                            <?php 
+                            
+                            foreach($cart as $value){ ?>
                             <tr>
                                 <?php $wcp_price = $wcp_price + (($value->price) * ($value->quantity)); ?>
                                 <td class="p-4">
@@ -121,7 +142,9 @@
                                         data-original-title="Remove">×</a></td>
 
                             </tr>
-                            <?php } ?>
+                            <?php }
+
+                            ?>
                             <tr>
 
 
@@ -164,6 +187,10 @@
                     <a href="{{ URL ('stripe',$wcp_price )}}" class="btn btn-lg btn-info mt-2">Via card</a>
                     <a href="{{ URL ('cash_order')}}" class="btn btn-lg btn-primary mt-2">Cash on delivery</a>
                 </div>
+                <?php 
+            } 
+        
+            ?>
 
             </div>
         </div>

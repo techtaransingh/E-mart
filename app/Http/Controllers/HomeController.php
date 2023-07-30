@@ -63,6 +63,7 @@ class HomeController extends Controller
             } else {
                 $data['price'] = $product->price;
             }
+
             $cart = Carts::create($data);
             return back();
         } else {
@@ -75,7 +76,7 @@ class HomeController extends Controller
         $logged_in = auth::id();
 
         $user = auth::user();
-
+        $product_ids = [];
         $cart = Carts::where('user_id', $user->id)->get();
         foreach ($cart as $value) {
             $product_ids[] = $value->product_id;
@@ -87,7 +88,7 @@ class HomeController extends Controller
 
         // print_r($product->price);
         // die;
-
+        // dd($cart);
         return view('home.cart', ['cart' => $cart, 'product' => $product]);
     }
     public function delete_product(Request $request, $id)
@@ -117,11 +118,14 @@ class HomeController extends Controller
                 'payment_status' => 'processing',
                 'delivery_status' => 'cash on delivery',
             ];
+            $stock_update = Product::find($value->product_id);
+            $stock_update->update(['quantity' => ($stock_update->quantity - $value->quantity)]);
+
             $orders = Order::create($data[$value->product_id]);
             $cart_cleared = Carts::where('product_id', $value->product_id)
                 ->where('user_id', $user)->delete();
         }
-
+        return redirect('/')->with('message', 'Cash on delivery order placed successfully');
     }
 
 }

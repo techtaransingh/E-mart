@@ -5,6 +5,7 @@ use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SecurePayController;
 
 
 /*
@@ -30,6 +31,9 @@ Route::post('/add_product', [AdminController::class, 'add_product']);
 Route::get('/view_productlist', [AdminController::class, 'view_productlist']);
 Route::get('/productlist_delete/{id}', [AdminController::class, 'productlist_delete']);
 Route::get('/productlist_edit/{id}', [AdminController::class, 'productlist_edit']);
+Route::get('/view_orderlist', [AdminController::class, 'view_orderlist']);
+Route::get('/delivered/{id}', [AdminController::class, 'delivered']);
+Route::get('/print_pdf/{id}', [AdminController::class, 'print_pdf']);
 Route::get('/product_details/{id}', [HomeController::class, 'product_details']);
 Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
 Route::get('/show_cart/{id?}', [HomeController::class, 'show_cart']);
@@ -40,6 +44,8 @@ Route::post('/stripePost', [StripeController::class, 'stripePost']);
 // Route::get('stripe-form/{price}', [StripePaymentController::class, 'form'])->name('stripeForm');
 // Route::post('stripe-form/submit', [StripePaymentController::class, 'submit'])->name('stripeSubmit');
 // Route::get('stripe-response/{id}', [StripePaymentController::class, 'response'])->name('stripeResponse');
+
+
 
 
 

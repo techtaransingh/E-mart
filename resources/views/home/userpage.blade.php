@@ -24,6 +24,11 @@
 </head>
 
 <body>
+    @if($message=session('message'))
+    <div class="alert alert-success">
+        <p class="text-center">{{$message}}</p>
+    </div>
+    @endif
     <div class="hero_area">
         <!-- header section strats -->
         @include('home.header')

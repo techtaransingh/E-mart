@@ -82,8 +82,8 @@
                             @csrf
                             <div class="col-md-4">
 
-                                <input type="number" min=1 value="1" class="form-control" name="quantity"
-                                    style="width:100px" />
+                                <input type="number" min=1 max="{{ $product->quantity }}" value="1" class="form-control"
+                                    name="quantity" style="width:100px" />
                             </div>
                             <div class="col-md-4">
                                 <input type="submit" value="Add To Cart" />
