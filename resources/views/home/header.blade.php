@@ -1,4 +1,7 @@
       <!-- header section strats -->
+      <?php 
+      use Illuminate\Support\Facades\Auth;
+      ?>
       <header class="header_section">
           <div class="container">
               <nav class="navbar navbar-expand-lg custom_nav-container ">
@@ -31,9 +34,19 @@
                           <li class="nav-item">
                               <a class="nav-link" href="home/contact.html">Contact</a>
                           </li>
+                          <?php 
+                          if(auth::id()){
+                          ?>
+
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{URL('show_order')}}">Orders</a>
+                          </li>
+                          <?php } ?>
                           <li class="nav-item">
                               <a class="nav-link" href="{{ URL('show_cart') }}">Cart</a>
                           </li>
+
+
                           <li class="nav-item">
                               <a class="nav-link" href="#">
                                   <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"

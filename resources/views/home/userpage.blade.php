@@ -24,11 +24,6 @@
 </head>
 
 <body>
-    @if($message=session('message'))
-    <div class="alert alert-success">
-        <p class="text-center">{{$message}}</p>
-    </div>
-    @endif
     <div class="hero_area">
         <!-- header section strats -->
         @include('home.header')
@@ -49,6 +44,127 @@
     <!-- product section -->
     @include('home.product')
     <!-- end product section -->
+    <!--Comments Section Start Here -->
+    <style>
+    body {
+        background-color: #eee;
+
+    }
+
+    .bdge {
+        height: 21px;
+        background-color: orange;
+        color: #fff;
+        font-size: 11px;
+        padding: 8px;
+        border-radius: 4px;
+        line-height: 3px;
+    }
+
+    .comments {
+        text-decoration: underline;
+        text-underline-position: under;
+        cursor: pointer;
+    }
+
+    .dot {
+        height: 7px;
+        width: 7px;
+        margin-top: 3px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .hit-voting:hover {
+        color: blue;
+    }
+
+    .hit-voting {
+        cursor: pointer;
+    }
+    </style>
+    <!-- <h1 style="text-align:center;padding-top:20px;padding-bottom:20px">Comment Section</h1> -->
+    <div class="heading_container heading_center">
+        <h2>
+            Comment <span>Section</span>
+        </h2>
+    </div>
+    <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-center row">
+            <div class="d-flex flex-column col-md-8">
+                <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
+
+
+                    <div class="d-flex flex-column ml-3">
+
+
+                        <div class="coment-bottom bg-white p-2 px-4">
+                            <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                                <form action="add_comment" method="POST">
+                                    <input type="text" name="comment" class="form-control mr-3"
+                                        placeholder="Add comment">
+                                    <button type="submit" class="btn btn-primary">Comment</button>
+                                    @csrf
+                                </form>
+
+                            </div>
+                            @if($message=session('message'))
+                            <div class="alert alert-success">
+                                <p class="text-center">{{$message}}</p>
+                            </div>
+                            @endif
+                            @foreach($comments as $value)
+                            <div class="commented-section mt-2">
+                                <div class="d-flex flex-row align-items-center commented-user">
+
+                                    <h5 style="color:blue" class="mr-2">{{$value->name}}</h5><span
+                                        class="dot mb-1"></span><span class="mb-1 ml-2">{{$value->created_at}} Hours
+                                        ago</span>
+                                </div>
+                                <div class="comment-text-sm"><span>{{$value->comment}}</span>
+                                </div>
+                                <div class="reply-section">
+                                    <!-- <div class="d-flex flex-row align-items-center voting-icons">
+                                        <a href="" class="ml-2 mt-1">Show Replies</a>
+
+                                    </div> -->
+                                    <div style="padding-bottom:20px;padding-left:3%">
+                                        @foreach($value->getReplies as $value2)
+                                        <div>
+                                            <b>{{$value2->name}}</b>
+                                            <p>{{$value2->reply}}</P>
+
+                                        </div>
+                                        @endforeach()
+
+
+
+                                    </div>
+                                    <div class="panel-body" style="border:1px solid #eee;height:auto">
+                                        <form method="POST" action="{{URL('add_reply',$value->id)}}">
+                                            <input type="text" name="reply" class="form-control mr-3"
+                                                placeholder="Reply...">
+                                            <!-- <text class="form-control" placeholder="Reply..." rows="3"></text> -->
+
+                                            <!-- <input type="hidden" name="comment_id" value="{{$value->id}}"> -->
+                                            <button type="submit" class="btn btn-info pull-right">Post</button>
+                                            @csrf
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments Section End Here  -->
 
     <!-- subscribe section -->
     @include('home.subscribe')
@@ -60,7 +176,8 @@
     @include('home.footer')
     <!-- footer end -->
     <div class="cpy_">
-        <p class="mx-auto">© 2021 All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br>
+        <p class="mx-auto">© 2021 All Rights Reserved By <a href="https://html.design/">Free Html
+                Templates</a><br>
 
             Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
 

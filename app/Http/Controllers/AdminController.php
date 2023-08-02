@@ -125,10 +125,24 @@ class AdminController extends Controller
         // die;
         $data = Order::find($id);
 
-        $pdf = PDF::loadView('admin.order_detail', ['data' => $data]);
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => false, 'chroot' => public_path('images')])->loadView('admin.order_detail', ['data' => $data]);
 
-        // dd($data->name);
+        // dd($data->image);
+        echo 'Current PHP version: ' . phpversion();
+        die;
         // return view('admin.order_detail', ['data' => $data]);
-        return $pdf->download('order_detail' . $id . '.pdf');
+        // return $pdf->download('order_detail' . $id . '.pdf');
+        return $pdf->download('order_detail.pdf');
+    }
+    public function search_order(Request $request)
+    {
+        // dd($request->search);
+        $search = $request->search;
+        $order = Order::where('name', 'like', '%' . $search . '%')
+            ->orwhere('phone', 'like', '%' . $search . '%')
+            ->orwhere('address', 'like', '%' . $search . '%')->get();
+
+        // dd($order);
+        return view('admin.orderlist', ['order' => $order]);
     }
 }

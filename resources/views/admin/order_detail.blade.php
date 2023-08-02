@@ -357,16 +357,11 @@ table.sign tr td {
                 </tr>
             </tbody>
         </table>
-        <h3></h3>
-        <img src="{{ public_path($data->image) }}" />
 
         <table class="sign">
             <tr>
-                <!-- <td><img src="C:\xampp2\htdocs\E-mart\public/images/{{ $data->image }}" /></td> -->
-                <!-- <td><img src="{{ asset('images/' . $data->image) }}" /></td> -->
+                <td><img src="{{public_path('images/' . $data->image) }}" alt="Order Image" width="100"></td>
 
-                <!-- <td><img src="{{ base_path() }}/images/{{$data->image}}" /></td> -->
-                <!-- <td><img alt="{{ public_path('images') }}" src="" alt="sdd"></td> -->
             </tr>
         </table>
 

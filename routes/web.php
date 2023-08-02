@@ -34,11 +34,17 @@ Route::get('/productlist_edit/{id}', [AdminController::class, 'productlist_edit'
 Route::get('/view_orderlist', [AdminController::class, 'view_orderlist']);
 Route::get('/delivered/{id}', [AdminController::class, 'delivered']);
 Route::get('/print_pdf/{id}', [AdminController::class, 'print_pdf']);
+
+Route::post('/search_order', [AdminController::class, 'search_order']);
 Route::get('/product_details/{id}', [HomeController::class, 'product_details']);
 Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
 Route::get('/show_cart/{id?}', [HomeController::class, 'show_cart']);
 Route::get('/delete_product/{id}', [HomeController::class, 'delete_product']);
 Route::get('/cash_order', [HomeController::class, 'cash_order']);
+Route::get('/show_order', [HomeController::class, 'show_order']);
+Route::get('/cancel_order/{id}', [HomeController::class, 'cancel_order']);
+Route::post('/add_comment', [HomeController::class, 'add_comment']);
+Route::post('/add_reply/{id}', [HomeController::class, 'add_reply']);
 Route::get('/stripe/{price}', [StripeController::class, 'stripe']);
 Route::post('/stripePost', [StripeController::class, 'stripePost']);
 // Route::get('stripe-form/{price}', [StripePaymentController::class, 'form'])->name('stripeForm');

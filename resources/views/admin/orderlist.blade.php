@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <style>
     .div_center {
         text-align: center;
@@ -61,8 +62,16 @@
                         </div>
                         @endif
 
-                        <h2 class="h2_font">Order List </h2>
 
+
+                        <h2 class="h2_font">Order List </h2>
+                        <div style="padding-bottom:20px;padding-top:20px">
+                            <form action="search_order" method="post">
+                                <input type="text" name='search' value="{{old('search')}}" placeholder="Search..">
+                                <button class="btn bth-primary btn-success">Submit</button>
+                                @csrf
+                            </form>
+                        </div>
 
 
                         <table class="table table-dark"

@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Models\Carts;
 use App\Models\Order;
 use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Reply;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -16,20 +18,53 @@ class HomeController extends Controller
     {
 
         $type = Auth::user()->usertype;
-        // echo 'hellooooo';die;
+
+        $total_customers = Order::distinct('user_id')->count();
+
+
         if ($type != 0) {
-            return view('admin.home');
+            $orders_data = Order::all();
+            $total_quantity = 0;
+            $total_revenue = 0;
+            foreach ($orders_data as $value) {
+                $total_quantity = $total_quantity + $value->quantity;
+                $total_orders = count($orders_data);
+                $total_revenue = $total_revenue + ($value->quantity * $value->price);
+                $order_delivered = Order::where(['delivery_status' => 'delivered'])->count();
+                $order_processed = Order::where(['payment_status' => 'processing'])->count();
+
+            }
+            // echo $order_processed;
+            // die;
+            return view('admin.home', [
+                'total_quantity' => $total_quantity,
+                'total_orders' => $total_orders,
+                'total_customers' => $total_customers,
+                'total_revenue' => $total_revenue,
+                'order_delivered' => $order_delivered,
+                'order_processed' => $order_processed,
+
+            ]);
         } else {
-            $products = Product::paginate(3);
-            return view('home.userpage', ['products' => $products]);
+            return redirect('/');
+            // $products = Product::paginate(3);
+            // $comments = Comment::all();
+            // return view('home.userpage', ['products' => $products, 'comments' => $comments]);
         }
     }
     public function index(Request $request)
     {
+
         $products = Product::paginate(3);
+        $comments = Comment::all();
 
 
-        return view('home.userpage', ['products' => $products]);
+
+        return view('home.userpage', [
+            'products' => $products,
+            'comments' => $comments,
+
+        ]);
     }
     public function product_details(Request $request, $id)
     {
@@ -128,4 +163,51 @@ class HomeController extends Controller
         return redirect('/')->with('message', 'Cash on delivery order placed successfully');
     }
 
+    public function show_order(Request $request)
+    {
+        $user_id = auth::id();
+        $orders = Order::where('user_id', $user_id)->paginate(3);
+        return view('home.show_orders', ['orders' => $orders]);
+    }
+    public function cancel_order(Request $request, $id)
+    {
+        $order = Order::find($id)->update([
+            'delivery_status' => 'Cancelled',
+            'payment_status' => 'Cancelled'
+        ]);
+
+        return back()->with('message', 'Order Cancelled');
+    }
+    public function add_comment(Request $request)
+    {
+        $user_id = auth::id();
+        $user_name = auth::user()->name;
+        $comment_data = Comment::create([
+            'user_id' => $user_id,
+            'comment' => $request->comment,
+            'name' => $user_name
+        ]);
+        return back()->with('message', 'Comment Posted');
+    }
+    public function add_reply(Request $request, $id)
+    {
+        $user_id = Auth::id();
+        $user_name = Auth::user()->name;
+
+        $replies = Reply::Create([
+            'name' => $user_name,
+            'comment_id' => $id,
+            'reply' => $request->reply,
+            'user_id' => $user_id,
+        ]);
+
+        // $replies = new Reply;
+        // $replies->name = $user_name;
+        // $replies->comment_id = $id;
+        // $replies->reply = $request->reply;
+        // $replies->user_id = $user_id;
+        // $replies->save();
+
+        return back();
+    }
 }
