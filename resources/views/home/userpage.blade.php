@@ -131,9 +131,23 @@
                                     </div> -->
                                     <div style="padding-bottom:20px;padding-left:3%">
                                         @foreach($value->getReplies as $value2)
-                                        <div>
+                                        <!-- <div>
                                             <b>{{$value2->name}}</b>
-                                            <p>{{$value2->reply}}</P>
+                                            <p>{{$value2->reply}}</p>
+
+                                        </div> -->
+                                        <div class="col-md-12">
+
+                                            <div class="wcp-comment">
+
+                                                <p><span class="wcp-user-name"></span>
+                                                </p>
+                                                <b>{{$value2->name}}</b>
+                                                <p>{{$value2->reply}}</p>
+
+                                                <p><a class="wcp-comment-reply">Reply</a></p>
+                                            </div>
+
 
                                         </div>
                                         @endforeach()
@@ -141,18 +155,18 @@
 
 
                                     </div>
-                                    <div class="panel-body" style="border:1px solid #eee;height:auto">
+                                    <!-- <div class="panel-body">
                                         <form method="POST" action="{{URL('add_reply',$value->id)}}">
                                             <input type="text" name="reply" class="form-control mr-3"
-                                                placeholder="Reply...">
-                                            <!-- <text class="form-control" placeholder="Reply..." rows="3"></text> -->
+                                                placeholder="Reply..."> -->
+                                    <!-- <text class="form-control" placeholder="Reply..." rows="3"></text> -->
 
-                                            <!-- <input type="hidden" name="comment_id" value="{{$value->id}}"> -->
-                                            <button type="submit" class="btn btn-info pull-right">Post</button>
+                                    <!-- <input type="hidden" name="comment_id" value="{{$value->id}}"> -->
+                                    <!-- <button type="submit" class="btn btn-info pull-right">Post</button>
                                             @csrf
                                         </form>
 
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             @endforeach
@@ -183,6 +197,31 @@
 
         </p>
     </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        $('.wcp-comment-reply').click(function() {
+            let html = "<div class='reply-section'>\
+                        <textarea class='form-control reply-area'></textarea>\
+                        <button class='btn btn-primary reply-process'>Reply</button>\
+                        <button class='btn btn-danger reply-cancel'>Cancel</button>\
+                     </div>";
+            let parent_container = $(this).parent().parent();
+            $(html).insertAfter(parent_container);
+        });
+
+        $(document).on('click', '.reply-cancel', function() {
+            $(this).parent().remove();
+        });
+
+        // You can add more event handlers here if needed.
+    });
+    </script>
+
+
+
     <!-- jQery -->
     <script src="home/js/jquery-3.4.1.min.js"></script>
     <!-- popper js -->
@@ -191,6 +230,9 @@
     <script src="home/js/bootstrap.js"></script>
     <!-- custom js -->
     <script src="home/js/custom.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

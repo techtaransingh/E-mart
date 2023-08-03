@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SecurePayController;
+use App\Http\Controllers\GoogleController;
 
 
 /*
@@ -51,7 +52,14 @@ Route::post('/stripePost', [StripeController::class, 'stripePost']);
 // Route::post('stripe-form/submit', [StripePaymentController::class, 'submit'])->name('stripeSubmit');
 // Route::get('stripe-response/{id}', [StripePaymentController::class, 'response'])->name('stripeResponse');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
 
+Route::controller(GoogleController::class)->group(function () {
+    Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
+    Route::get('auth/google/callback', 'handleGoogleCallback');
+});
 
 
 
