@@ -21,6 +21,7 @@
     <link href="/home/css/style.css" rel="stylesheet" />
     <!-- responsive style -->
     <link href="/home/css/responsive.css" rel="stylesheet" />
+    <link href="/home/css/comments.css" rel="stylesheet" />
 </head>
 
 
@@ -36,7 +37,8 @@
 
                 @if ($product->image != null)
                 <div class="img-box">
-                    <img style="padding:20px" src="<?php echo url('images/' . $product->image); ?>">
+                    <img style="padding:20px" width="500" height="500"
+                        src="<?php echo url('images/' . $product->image); ?>">
                     {{-- <img src="home/famms-1.0.0/images/p1.png" alt=""> --}}
                 </div>
                 @endif
@@ -90,15 +92,25 @@
                             </div>
                         </div>
                     </form>
-                </div>
 
+
+                </div>
 
 
 
             </div>
         </div>
 
+
+        <div class="heading_container heading_center">
+            <h2>
+                Customer <span>Reviews</span>
+            </h2>
+        </div>
+
+
         <!-- Product Detail End Here -->
+        @include('home.product_comments')
 
         <!-- footer start -->
         <footer>
@@ -112,6 +124,8 @@
 
             </p>
         </div>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="/home/js/comments_script.js"></script>
         <!-- jQery -->
         <script src="/home/js/jquery-3.4.1.min.js"></script>
         <!-- popper js -->

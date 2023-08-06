@@ -1,8 +1,29 @@
+<!-- Contenedor Principal -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <!-- Basic -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="home/images/favicon.png" type="">
+    <title>Famms - Fashion HTML Template</title>
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="home/css/bo…">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- Mobile Metas -->
@@ -21,7 +42,9 @@
     <link href="home/css/style.css" rel="stylesheet" />
     <!-- responsive style -->
     <link href="home/css/responsive.css" rel="stylesheet" />
+    <link href="home/css/comments.css" rel="stylesheet" />
 </head>
+
 
 <body>
     <div class="hero_area">
@@ -45,139 +68,13 @@
     @include('home.product')
     <!-- end product section -->
     <!--Comments Section Start Here -->
-    <style>
-    body {
-        background-color: #eee;
-
-    }
-
-    .bdge {
-        height: 21px;
-        background-color: orange;
-        color: #fff;
-        font-size: 11px;
-        padding: 8px;
-        border-radius: 4px;
-        line-height: 3px;
-    }
-
-    .comments {
-        text-decoration: underline;
-        text-underline-position: under;
-        cursor: pointer;
-    }
-
-    .dot {
-        height: 7px;
-        width: 7px;
-        margin-top: 3px;
-        background-color: #bbb;
-        border-radius: 50%;
-        display: inline-block;
-    }
-
-    .hit-voting:hover {
-        color: blue;
-    }
-
-    .hit-voting {
-        cursor: pointer;
-    }
-    </style>
-    <!-- <h1 style="text-align:center;padding-top:20px;padding-bottom:20px">Comment Section</h1> -->
     <div class="heading_container heading_center">
         <h2>
             Comment <span>Section</span>
         </h2>
     </div>
-    <div class="container mt-5 mb-5">
-        <div class="d-flex justify-content-center row">
-            <div class="d-flex flex-column col-md-8">
-                <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
 
-
-                    <div class="d-flex flex-column ml-3">
-
-
-                        <div class="coment-bottom bg-white p-2 px-4">
-                            <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                                <form action="add_comment" method="POST">
-                                    <input type="text" name="comment" class="form-control mr-3"
-                                        placeholder="Add comment">
-                                    <button type="submit" class="btn btn-primary">Comment</button>
-                                    @csrf
-                                </form>
-
-                            </div>
-                            @if($message=session('message'))
-                            <div class="alert alert-success">
-                                <p class="text-center">{{$message}}</p>
-                            </div>
-                            @endif
-                            @foreach($comments as $value)
-                            <div class="commented-section mt-2">
-                                <div class="d-flex flex-row align-items-center commented-user">
-
-                                    <h5 style="color:blue" class="mr-2">{{$value->name}}</h5><span
-                                        class="dot mb-1"></span><span class="mb-1 ml-2">{{$value->created_at}} Hours
-                                        ago</span>
-                                </div>
-                                <div class="comment-text-sm"><span>{{$value->comment}}</span>
-                                </div>
-                                <div class="reply-section">
-                                    <!-- <div class="d-flex flex-row align-items-center voting-icons">
-                                        <a href="" class="ml-2 mt-1">Show Replies</a>
-
-                                    </div> -->
-                                    <div style="padding-bottom:20px;padding-left:3%">
-                                        @foreach($value->getReplies as $value2)
-                                        <!-- <div>
-                                            <b>{{$value2->name}}</b>
-                                            <p>{{$value2->reply}}</p>
-
-                                        </div> -->
-                                        <div class="col-md-12">
-
-                                            <div class="wcp-comment">
-
-                                                <p><span class="wcp-user-name"></span>
-                                                </p>
-                                                <b>{{$value2->name}}</b>
-                                                <p>{{$value2->reply}}</p>
-
-                                                <p><a class="wcp-comment-reply">Reply</a></p>
-                                            </div>
-
-
-                                        </div>
-                                        @endforeach()
-
-
-
-                                    </div>
-                                    <!-- <div class="panel-body">
-                                        <form method="POST" action="{{URL('add_reply',$value->id)}}">
-                                            <input type="text" name="reply" class="form-control mr-3"
-                                                placeholder="Reply..."> -->
-                                    <!-- <text class="form-control" placeholder="Reply..." rows="3"></text> -->
-
-                                    <!-- <input type="hidden" name="comment_id" value="{{$value->id}}"> -->
-                                    <!-- <button type="submit" class="btn btn-info pull-right">Post</button>
-                                            @csrf
-                                        </form>
-
-                                    </div> -->
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    @include('home.comments')
     <!-- Comments Section End Here  -->
 
     <!-- subscribe section -->
@@ -200,27 +97,7 @@
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <script>
-    $(document).ready(function() {
-        $('.wcp-comment-reply').click(function() {
-            let html = "<div class='reply-section'>\
-                        <textarea class='form-control reply-area'></textarea>\
-                        <button class='btn btn-primary reply-process'>Reply</button>\
-                        <button class='btn btn-danger reply-cancel'>Cancel</button>\
-                     </div>";
-            let parent_container = $(this).parent().parent();
-            $(html).insertAfter(parent_container);
-        });
-
-        $(document).on('click', '.reply-cancel', function() {
-            $(this).parent().remove();
-        });
-
-        // You can add more event handlers here if needed.
-    });
-    </script>
-
-
+    <script src="home/js/comments_script.js"></script>
 
     <!-- jQery -->
     <script src="home/js/jquery-3.4.1.min.js"></script>

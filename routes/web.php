@@ -46,6 +46,7 @@ Route::get('/show_order', [HomeController::class, 'show_order']);
 Route::get('/cancel_order/{id}', [HomeController::class, 'cancel_order']);
 Route::post('/add_comment', [HomeController::class, 'add_comment']);
 Route::post('/add_reply/{id}', [HomeController::class, 'add_reply']);
+Route::post('/add_product_comment/{id}', [HomeController::class, 'add_product_comment']);
 Route::get('/stripe/{price}', [StripeController::class, 'stripe']);
 Route::post('/stripePost', [StripeController::class, 'stripePost']);
 // Route::get('stripe-form/{price}', [StripePaymentController::class, 'form'])->name('stripeForm');

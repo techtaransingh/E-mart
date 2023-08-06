@@ -56,9 +56,10 @@ class HomeController extends Controller
     {
 
         $products = Product::paginate(3);
-        $comments = Comment::all();
-
-
+        $comments = Comment::where('product_id', NULL)->orderBy('id', 'desc')->paginate(2);
+        // foreach ($comments as $value) {
+        //     dd($value);
+        // }
 
         return view('home.userpage', [
             'products' => $products,
@@ -70,9 +71,11 @@ class HomeController extends Controller
     {
         $product = Product::find($id);
         $category = $product->getCategory;
+        $comments = Comment::where('product_id', $id)->orderBy('id', 'desc')->paginate(2);
+        // dd($comments);
 
 
-        return view('home.product_details', ['product' => $product, 'category' => $category]);
+        return view('home.product_details', ['product' => $product, 'category' => $category, 'comments' => $comments,]);
     }
     public function add_cart(Request $request, $id)
     {
@@ -182,6 +185,7 @@ class HomeController extends Controller
     {
         $user_id = auth::id();
         $user_name = auth::user()->name;
+        $request->validate(['comment' => 'required']);
         $comment_data = Comment::create([
             'user_id' => $user_id,
             'comment' => $request->comment,
@@ -209,5 +213,19 @@ class HomeController extends Controller
         // $replies->save();
 
         return back();
+    }
+    public function add_product_comment(Request $request, $id)
+    {
+
+        $user_id = auth::id();
+        $user_name = auth::user()->name;
+        $request->validate(['comment' => 'required']);
+        $comment_data = Comment::create([
+            'user_id' => $user_id,
+            'comment' => $request->comment,
+            'name' => $user_name,
+            'product_id' => $id,
+        ]);
+        return back()->with('message', 'Comment Posted');
     }
 }
